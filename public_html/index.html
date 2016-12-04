@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="naam" content="width=device-width, initial-scale=1.0">
+         <link rel="shortcut icon" href="">
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js">
+        </script>
+
+    </head>
+    <body>
+         <div>
+            <h1>Opracht 7</h1>
+            <table id="tabel">
+                <tr> <!-- tabel headers rest automatische append -->
+                    <th>ID drone</th>
+                    <th>Naam drone</th>
+                    <th>Mac_adres drone</th>
+                    <th>id file</th>
+                    <th>Eerste record</th>
+                    <th>Laatste Record</th>
+                </tr>
+            </table>
+        </div>
+        <script>
+            
+                    $.ajax({
+                        "url": "https://web-ims.thomasmore.be/datadistribution/API/2.0/drones?format=json",
+                        "method": 'GET',                       
+                        "dataType": "json",
+                        "headers": {
+                            "authorization": "Basic aW1zOno1MTJtVDRKeVgwUExXZw=="}
+                    }).done(function (drones) {
+                        $('#tabel').append('<tr>' +
+                                            '<td>' + JSON.stringify(drones[0].id) + '</td>' 
+                                            /*'<td>' + droneDetails.name + '</td>' +
+                                            '<td>' + droneDetails.mac_address + '</td>' +
+                                            '<td>' + files.id + '</td>' +
+                                            '<td>' + fileDetails.date_first_record + '</td>' +
+                                            '<td>' + fileDetails.date_last_record + '</td></tr>'*/);
+                    }).fail(function () {
+                        
+                    });
+               
+
+        </script>
+        
+    </body>
+</html>
