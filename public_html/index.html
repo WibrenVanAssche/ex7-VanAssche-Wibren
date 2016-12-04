@@ -34,20 +34,37 @@
                     "authorization": "Basic aW1zOno1MTJtVDRKeVgwUExXZw=="}
             }).done(function (drones) {
 
-            drones.forEach(function(drones){
-            $.ajax({"url": "https://web-ims.thomasmore.be/datadistribution/API/2.0/drones/" + drones.id + "?format=json",
+            drones.forEach(function (drones) {
+            $.ajax({
+            "url": "https://web-ims.thomasmore.be/datadistribution/API/2.0/drones/" + drones.id + "?format=json",
                     "method": "GET",
                     "datatype": "json",
                     "headers": {
                     "authorization": "Basic aW1zOno1MTJtVDRKeVgwUExXZw=="
                     }
-            }).done(function(dronefiles){
-             }).fail(function () {
-             
-             });
-            
-            })
-            })
+            }).done(function (dronespecs) {
+            $.ajax({
+            "url": "https://web-ims.thomasmore.be/datadistribution/API/2.0/files?drone_id.is=" + dronespecs.id + "&format=json",
+                    "method": "GET",
+                    "datatype": "json",
+                    "headers": {
+                    "authorization": "Basic aW1zOno1MTJtVDRKeVgwUExXZw=="
+                    }
+            }).done(function (oplos){
+            $('#tabel').append('<tr>' +
+                    '<td>' + JSON.stringify(drones.id) + '</td>' +
+                    '<td>' + dronespecs.name + '</td>' +
+                    '<td>' + dronespecs.mac_address + '</td>');
+            }).fail(function () {
+
+            });
+            }).fail(function () {
+                        alert('An error has occurred - you may not have been entered');
+                    });
+            });
+            }).fail(function () {
+                alert('An error has occurred - you may not have been entered');
+            });
 
 
 
